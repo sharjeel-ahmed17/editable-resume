@@ -1,4 +1,4 @@
-// Get form elements
+
 var resumeForm = document.getElementById("resume-form");
 var nameInput = document.getElementById("name");
 var emailInput = document.getElementById("email");
@@ -8,7 +8,7 @@ var profilePicUploadInput = document.getElementById("profilePicUpload");
 var educationInput = document.getElementById("education");
 var workExperienceInput = document.getElementById("workExperience");
 var skillsInput = document.getElementById("skills");
-// Get resume display elements
+
 var resName = document.getElementById("res-name");
 var resEmail = document.getElementById("res-email");
 var resPhone = document.getElementById("res-phone");
@@ -16,29 +16,29 @@ var resProfilePic = document.getElementById("res-profile-pic");
 var resEducationList = document.getElementById("res-education-list");
 var resWorkList = document.getElementById("res-work-list");
 var resSkillsList = document.getElementById("res-skills-list");
-// Resume container
+
 var resumeContainer = document.querySelector(".resume-container");
-// Utility function to clear list items
+
 function clearList(list) {
     while (list.firstChild) {
         list.removeChild(list.firstChild);
     }
 }
-// Form submission
+
 resumeForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    // Basic validation (checks if required fields are filled)
+
     if (nameInput.value &&
         emailInput.value &&
         phoneInput.value &&
         educationInput.value &&
         workExperienceInput.value &&
         skillsInput.value) {
-        // Populate the resume dynamically
+
         resName.textContent = nameInput.value;
         resEmail.textContent = "Email: ".concat(emailInput.value);
         resPhone.textContent = "Phone: ".concat(phoneInput.value);
-        // Handle profile picture (either URL or uploaded file)
+
         if (profilePicUrlInput.value) {
             resProfilePic.src = profilePicUrlInput.value;
             resProfilePic.style.display = "block";
@@ -57,7 +57,7 @@ resumeForm.addEventListener("submit", function (event) {
         else {
             resProfilePic.style.display = "none";
         }
-        // Populate education (as a list)
+
         clearList(resEducationList);
         var educationArray = educationInput.value
             .split(",")
@@ -67,7 +67,7 @@ resumeForm.addEventListener("submit", function (event) {
             li.textContent = item;
             resEducationList.appendChild(li);
         });
-        // Populate work experience (as a list)
+
         clearList(resWorkList);
         var workArray = workExperienceInput.value
             .split(",")
@@ -77,7 +77,7 @@ resumeForm.addEventListener("submit", function (event) {
             li.textContent = item;
             resWorkList.appendChild(li);
         });
-        // Populate skills (as a list)
+
         clearList(resSkillsList);
         var skillsArray = skillsInput.value
             .split(",")
@@ -87,14 +87,14 @@ resumeForm.addEventListener("submit", function (event) {
             li.textContent = skill;
             resSkillsList.appendChild(li);
         });
-        // Show the generated resume
+
         resumeContainer.style.display = "block";
     }
     else {
         alert("Please fill in all required fields.");
     }
 });
-// Function to save edited content
+
 function saveEditedContent(element, storageKey) {
     element.addEventListener("blur", function () {
         var newValue = element.textContent || "";
@@ -102,21 +102,21 @@ function saveEditedContent(element, storageKey) {
         element.textContent = newValue;
     });
 }
-// Initialize editable sections
+
 saveEditedContent(resName, "name");
 saveEditedContent(resEmail, "email");
 saveEditedContent(resPhone, "phone");
 saveEditedContent(resEducationList, "education");
 saveEditedContent(resWorkList, "workExperience");
 saveEditedContent(resSkillsList, "skills");
-// Load stored data (optional)
+
 function loadStoredContent(element, storageKey) {
     var storedValue = localStorage.getItem(storageKey);
     if (storedValue) {
         element.textContent = storedValue;
     }
 }
-// Load stored data when the page loads
+
 loadStoredContent(resName, "name");
 loadStoredContent(resEmail, "email");
 loadStoredContent(resPhone, "phone");
